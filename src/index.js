@@ -48,12 +48,16 @@ app.get('/hello', (req, res) => {
   res.send('Hello world');
 });
 
-// Start the HTTP server
+// Start the HTTP server only when this file is run directly
+// The require.main === module check prevents the server from starting
+// when the app is imported for testing purposes
 // The server will listen for incoming requests on the specified port
 // Once started, it logs a message to the console to confirm it's running
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
 // Export the Express application instance
 // This allows the app to be imported in test files for testing
